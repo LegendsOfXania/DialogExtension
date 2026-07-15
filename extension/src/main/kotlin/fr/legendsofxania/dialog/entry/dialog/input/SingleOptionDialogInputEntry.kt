@@ -28,6 +28,7 @@ class SingleOptionDialogInputEntry(
     override val child: Ref<DialogInputEntry> = emptyRef(),
     override val label: String = "",
     @Help("Whether the label should be visible.")
+    @Default("true")
     val labelVisible: Boolean = true,
     @Min(1)
     @Max(1024)
@@ -44,7 +45,7 @@ class SingleOptionDialogInputEntry(
             entries.mapIndexed { index, entry ->
                 SingleOptionInputControl.Entry(
                     entry.id,
-                    entry.display.parsePlaceholders(player).asMini(),
+                    entry.display.asMini(),
                     index == 0,
                 )
             },
@@ -54,8 +55,11 @@ class SingleOptionDialogInputEntry(
     )
 
     override fun InteractionContextBuilder.apply(view: DialogResponseView) {
+        val selectedId = view.getText(id)
+        val selectedDisplay = entries.find { it.id == selectedId }?.display ?: selectedId
+
         this@SingleOptionDialogInputEntry[SingleOptionDialogInputContextKey.VALUE] =
-            view.getText(id) ?: label
+            selectedDisplay ?: label
     }
 }
 
@@ -64,7 +68,6 @@ data class Option(
     @Help("The unique identifier of the option.")
     val id: String = "",
     @Colored
-    @Placeholder
     @Help("The display text of the option.")
     val display: String = "",
 )

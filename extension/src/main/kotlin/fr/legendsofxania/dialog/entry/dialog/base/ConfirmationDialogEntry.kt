@@ -23,15 +23,16 @@ class ConfirmationDialogEntry(
     override val id: String = "",
     override val name: String = "",
     override val title: String = "",
-    override val externalTitle: Optional<String> = Optional.empty(),
     override val body: Ref<DialogBodyEntry> = emptyRef(),
     override val inputs: Ref<DialogInputEntry> = emptyRef(),
     override val afterAction: DialogAction = DialogAction.CLOSE,
-    val yes: Ref<DialogButtonEntry> = emptyRef(),
-    val no: Ref<DialogButtonEntry> = emptyRef(),
+    val yesButton: Ref<DialogButtonEntry> = emptyRef(),
+    val noButton: Ref<DialogButtonEntry> = emptyRef(),
 ) : DialogEntryBase() {
-    val resolvedYes: DialogButtonEntry by lazy { yes.get() ?: error("Could not find a yes button for dialog: $id") }
-    val resolvedNo: DialogButtonEntry by lazy { no.get() ?: error("Could not find a no button for dialog: $id") }
+    val resolvedYes: DialogButtonEntry by lazy {
+        yesButton.get() ?: error("Could not find a yes button for dialog: $id")
+    }
+    val resolvedNo: DialogButtonEntry by lazy { noButton.get() ?: error("Could not find a no button for dialog: $id") }
 
     override fun build(player: Player) = ConfirmationDialog(
         commonDialogData(player),

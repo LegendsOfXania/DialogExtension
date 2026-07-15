@@ -29,18 +29,13 @@ interface DialogEntry : ManifestEntry {
     @Help("The title of the dialog.")
     val title: String
 
-    @Colored
-    @Placeholder
-    @Help("The external title of the dialog. If not present, the title will be used instead.")
-    val externalTitle: Optional<String>
-
     @Help("The list of body elements")
     val body: Ref<DialogBodyEntry>
 
     @Help("The list of inputs elements")
     val inputs: Ref<DialogInputEntry>
 
-    @Help("The action to perform after the dialog is closed.")
+    @Help("An additional operation performed on the dialog after click or submit actions.")
     val afterAction: DialogAction
 
     fun build(player: Player): Dialog
@@ -52,7 +47,7 @@ abstract class DialogEntryBase : DialogEntry {
 
     protected fun commonDialogData(player: Player) = CommonDialogData(
         title.parsePlaceholders(player).asMini(),
-        externalTitle.map { it.parsePlaceholders(player).asMini() }.orElse(null),
+        null,
         true,
         false,
         afterAction,

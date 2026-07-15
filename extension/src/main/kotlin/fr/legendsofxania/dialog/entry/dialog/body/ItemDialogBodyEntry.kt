@@ -22,9 +22,11 @@ class ItemDialogBodyEntry(
     override val child: Ref<DialogBodyEntry> = emptyRef(),
     @Help("The item to display in the dialog.")
     val item: Item = Item.Empty,
-    @Help("Whether to show decorations around the item.")
+    @Help("If true, count and damage bar will be rendered over the item.")
+    @Default("true")
     val showDecorations: Boolean = true,
-    @Help("Whether to show a tooltip when hovering over the item.")
+    @Help(" If true, item tooltip will show up when item is hovered.")
+    @Default("true")
     val showTooltip: Boolean = true,
     @Min(1)
     @Max(256)
@@ -46,3 +48,5 @@ class ItemDialogBodyEntry(
         height,
     )
 }
+
+//todo add item's description

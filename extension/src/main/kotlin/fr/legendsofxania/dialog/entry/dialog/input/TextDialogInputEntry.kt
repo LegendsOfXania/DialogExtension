@@ -30,25 +30,26 @@ class TextDialogInputEntry(
     override val child: Ref<DialogInputEntry> = emptyRef(),
     override val label: String = "",
     @Help("Whether the label should be visible.")
+    @Default("true")
     val labelVisible: Boolean = true,
     @Min(1)
     @Max(1024)
-    @Default("200")
     @Help("The width of the input. Must be between 1 and 1024.")
+    @Default("200")
     val width: Int = 200,
     @Min(1)
-    @Max(32)
-    @Default("32")
-    @Help("The maximum length of the input. Must be between 1 and 32.")
-    val maxLength: Int = 32,
+    @Max(512)
+    @Help("The height of the input. Must be between 1 and 512.")
+    @Default("200")
+    val height: Int = 100,
     @Help("The initial text to display.")
     val initial: String = "",
     @Help("The maximum number of lines to display.")
     val maxLines: Optional<Int> = Optional.empty(),
     @Min(1)
-    @Max(512)
-    @Help("The maximum number of characters per line.")
-    val length: Optional<Int> = Optional.empty(),
+    @Help("The maximum length of the input. Must be between 1 and 32.")
+    @Default("32")
+    val maxLength: Int = 32,
 ) : DialogInputEntry {
     override fun build(player: Player) = Input(
         id,
@@ -58,7 +59,7 @@ class TextDialogInputEntry(
             labelVisible,
             initial,
             maxLength,
-            TextInputControl.MultilineOptions(maxLines.getOrNull(), length.getOrNull())
+            TextInputControl.MultilineOptions(maxLines.getOrNull(), height)
         )
     )
 

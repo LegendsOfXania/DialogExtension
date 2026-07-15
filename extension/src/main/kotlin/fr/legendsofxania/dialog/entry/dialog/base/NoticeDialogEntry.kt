@@ -24,7 +24,6 @@ class NoticeDialogEntry(
     override val id: String = "",
     override val name: String = "",
     override val title: String = "",
-    override val externalTitle: Optional<String> = Optional.empty(),
     override val body: Ref<DialogBodyEntry> = emptyRef(),
     override val inputs: Ref<DialogInputEntry> = emptyRef(),
     override val afterAction: DialogAction = DialogAction.CLOSE,
